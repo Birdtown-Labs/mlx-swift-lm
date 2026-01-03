@@ -38,6 +38,18 @@ public struct UserInput {
                 return messages.map(\.content).joined(separator: "\n")
             }
         }
+
+        /// Convert prompt to messages format for chat template processing.
+        public func asMessages() -> [Message] {
+            switch self {
+            case .text(let text):
+                return [["role": "user", "content": text]]
+            case .messages(let messages):
+                return messages
+            case .chat(let messages):
+                return messages.map { ["role": $0.role.rawValue, "content": $0.content] }
+            }
+        }
     }
 
     /// Representation of a video resource.
