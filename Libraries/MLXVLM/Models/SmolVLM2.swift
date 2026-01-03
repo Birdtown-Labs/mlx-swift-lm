@@ -221,7 +221,7 @@ public class SmolVLMProcessor: UserInputProcessor {
     }
 
     public func prepare(input: UserInput) async throws -> LMInput {
-        let messages = Qwen2VLMessageGenerator().generate(from: input)  // TODO: Create SmolVLM2MessageGenerator
+        let messages = input.prompt.asMessages()
 
         if input.images.isEmpty && input.videos.isEmpty {
             // No image scenario
